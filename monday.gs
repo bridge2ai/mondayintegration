@@ -1,8 +1,9 @@
 // thanks to this thread for unblocking me somewhat https://community.monday.com/t/mutating-a-date-in-v2/10404/5
 // and thanks to the great Randall Munroe for helping me laugh as I stare into the abyss of this backslash dystopia https://m.xkcd.com/1638/
 
-function MainUpdateValue() {
-  var statusQuery = '{  items(ids: ' + Item_id + ') {    column_values(ids: "status") {      id      value      text    }  }}'
+function testUncheckOptions() {
+  var statusQuery =
+    '{  items(ids: ' + Item_id + ') {    column_values(ids: "status") {      id      value      text    }  }}'
 
   Logger.log("Started: " + new Date())
 
@@ -36,7 +37,7 @@ function MainUpdateValue() {
   ];
 
   // iterate through all possible options to see if any successfully UNcheck the box. I'll save you the suspense. Nothing works.
-  // silentFailParameters.forEach(testParameterEncoding);
+  silentFailParameters.forEach(testParameterEncoding);
 
   var fatalErrorParameters = [
     "",
@@ -89,7 +90,7 @@ function MainUpdateValue() {
 }
 
 function insertNewItemWithVars() {
-  let query5 = 'mutation ($myItemName: String!, $columnVals: JSON!) { create_item (board_id:'+Board_id+', item_name:$myItemName, column_values:$columnVals) { id } }';
+  let query5 = 'mutation ($myItemName: String!, $columnVals: JSON!) { create_item (board_id:' + Board_id + ', item_name:$myItemName, column_values:$columnVals) { id } }';
 
   let vars = {
     "myItemName": "Hello, world!",
@@ -112,7 +113,7 @@ function insertNewItemWithVars() {
   })
 
   Logger.log(result);
-  
+
 }
 
 function listColNamesAndIds(boardId) {
@@ -143,7 +144,7 @@ function getColIDFromName(boardId, colName) {
 
   var matchedId = null;
   let columns = obj['data']['boards'][0]['columns'];
-  
+
   columns.forEach(function (colId) {
     if (colName === colId['title']) {
       matchedId = colId['id']
